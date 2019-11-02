@@ -1,5 +1,10 @@
 import UIKit
 
+protocol Cacheable: Identifiable {
+    init?(id: String, data: Data)
+    func toData() -> Data?
+}
+
 protocol Caching {
     associatedtype Model: Cacheable
     func contains(forID id: String, callbackQueue: DispatchQueue?, callback: @escaping (Bool) -> Void)
@@ -8,22 +13,21 @@ protocol Caching {
 }
 
 final class ImageCacher: Caching {
-    private let storage: Storage
-    private let cache = NSCache<NSString, NSData>()
-    private let workQueue = DispatchQueue(label: "IMAGE_CACHER_WORK_QUEUE", qos: .utility)
-    private let cacheWorkQueue = DispatchQueue(label: "IMAGE_CACHER_CACHE_WORK_QUEUE", qos: .utility)
-    private let storageWorkQueue = DispatchQueue(label: "IMAGE_CACHER_STORAGE_WORK_QUEUE", qos: .utility)
+    private let storage: Atomic<Storage>
+    private let cache = Atomic<NSCache<NSString, NSData>>(.init())
+    private let workQueue = DispatchQueue(label: "IMAGE_CACHING_WORK_QUEUE", qos: .utility)
 
     init(storage: Storage) {
-        self.storage = storage
+        self.storage = Atomic(storage)
         createImagesDirectoryIfNeeded()
     }
 
     func contains(forID id: String, callbackQueue: DispatchQueue?, callback: @escaping (Bool) -> Void) {
         workQueue.async { [weak self] in
             guard let self = self else { return }
-            let existsInCache = self.executeCacheWork { $0.object(forKey: id as NSString) != nil }
-            let existsOnDisk = self.executeStorageWork { $0.fileExists(at: self.diskURL(for: id)) }
+            let diskURL = self.diskURL(for: id)
+            let existsInCache = self.cache.execute { $0.object(forKey: id as NSString) != nil }
+            let existsOnDisk = self.storage.execute { $0.fileExists(at: diskURL) }
             let exists = existsInCache || existsOnDisk
             if let queue = callbackQueue {
                 queue.async { callback(exists) }
@@ -37,9 +41,10 @@ final class ImageCacher: Caching {
         workQueue.async { [weak self] in
             let image: Image? = {
                 guard let self = self else { return nil }
-                if let fromCache = self.executeCacheWork({ $0.object(forKey: id as NSString) }) {
+                let diskURL = self.diskURL(for: id)
+                if let fromCache = self.cache.execute({ $0.object(forKey: id as NSString) }) {
                     return Image(id: id, data: fromCache as Data)
-                } else if let fromDisk = self.executeStorageWork({ $0.contents(at: self.diskURL(for: id)) }) {
+                } else if let fromDisk = self.storage.execute({ $0.contents(at: diskURL) }) {
                     return Image(id: id, data: fromDisk)
                 }
                 return nil
@@ -55,17 +60,10 @@ final class ImageCacher: Caching {
     func set(model: Image) {
         workQueue.async { [weak self] in
             guard let self = self, let data = model.toData() else { return }
-            self.executeCacheWork { $0.setObject(data as NSData, forKey: model.id as NSString) }
-            _ = self.executeStorageWork { $0.createFile(at: self.diskURL(for: model.id), contents: data) }
+            let diskURL = self.diskURL(for: model.id)
+            self.cache.execute { $0.setObject(data as NSData, forKey: model.id as NSString) }
+            self.storage.execute { $0.createFile(at: diskURL, contents: data) }
         }
-    }
-
-    private func executeCacheWork<T>(_ work: (NSCache<NSString, NSData>) -> T) -> T {
-        return cacheWorkQueue.sync { work(self.cache) }
-    }
-
-    private func executeStorageWork<T>(_ work: (Storage) -> T) -> T {
-        return storageWorkQueue.sync { work(self.storage) }
     }
 
     private func diskURL(for id: String) -> URL {
@@ -73,14 +71,12 @@ final class ImageCacher: Caching {
     }
 
     private var imagesDirectoryURL: URL {
-        return storage.documentsDirectory.appendingPathComponent("Images")
+        return storage.value.documentsDirectory.appendingPathComponent("Images")
     }
 
     private func createImagesDirectoryIfNeeded() {
         let url = imagesDirectoryURL
-        executeStorageWork { storage in
-            if storage.fileExists(at: url) { return }
-            storage.createDirectory(at: url)
-        }
+        if storage.execute({ $0.fileExists(at: url)  }) { return }
+        storage.execute { $0.createDirectory(at: url) }
     }
 }
