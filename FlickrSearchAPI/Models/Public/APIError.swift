@@ -1,6 +1,6 @@
 import Foundation
 
-public enum APIError: Error, Equatable {
+public enum APIError: Error, Equatable, CustomDebugStringConvertible {
     case response(error: ResponseError)
     case decoding(error: DecodingError)
     case statusCode(code: Int)
@@ -44,6 +44,27 @@ public enum APIError: Error, Equatable {
             return lhsError.localizedDescription == rhsError.localizedDescription
         default:
             return false
+        }
+    }
+
+    public var debugDescription: String {
+        switch self {
+        case .response(let error):
+            return error.debugDescription
+        case .decoding(let error):
+            return error.localizedDescription
+        case .statusCode(let code):
+            return "Status Code (\(code))"
+        case .nonHTTPResponse(let response):
+            return "Non HTTP Response (\(response?.description ?? "nil"))"
+        case .badRequest:
+            return "Bad Request"
+        case .noResponse:
+            return "No Response"
+        case .cancelled:
+            return "Cancelled"
+        case .other(let error):
+            return error.localizedDescription
         }
     }
 }

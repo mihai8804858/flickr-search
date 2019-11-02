@@ -49,7 +49,18 @@
 		172B2359236ADDB700DE6B89 /* PhotoTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172B2348236ADDB700DE6B89 /* PhotoTests.swift */; };
 		172B235D236B1EFF00DE6B89 /* MockRequester.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172B235C236B1EFF00DE6B89 /* MockRequester.swift */; };
 		172B235F236B204400DE6B89 /* MockURLSession.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172B235E236B204400DE6B89 /* MockURLSession.swift */; };
+		172B2362236B2E5700DE6B89 /* ImageCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 172B2361236B2E5700DE6B89 /* ImageCell.xib */; };
+		172B2364236B348300DE6B89 /* ImageCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172B2363236B348300DE6B89 /* ImageCell.swift */; };
+		172B2368236B6C3700DE6B89 /* ImageViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172B2367236B6C3700DE6B89 /* ImageViewModel.swift */; };
+		172B236A236B7BFE00DE6B89 /* LoadingFooter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172B2369236B7BFE00DE6B89 /* LoadingFooter.swift */; };
+		172B236C236B7C2500DE6B89 /* LoadingFooter.xib in Resources */ = {isa = PBXBuildFile; fileRef = 172B236B236B7C2500DE6B89 /* LoadingFooter.xib */; };
+		17A9A742236C7AFD008948E1 /* Debouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A9A741236C7AFD008948E1 /* Debouncer.swift */; };
 		17A9A744236C87F1008948E1 /* Identifiable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17A9A743236C87F1008948E1 /* Identifiable.swift */; };
+		17DADDA4236D9DDF002B77FA /* ImageCacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DADDA3236D9DDF002B77FA /* ImageCacher.swift */; };
+		17DADDA6236DA243002B77FA /* Image.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DADDA5236DA243002B77FA /* Image.swift */; };
+		17DADDA8236DA27A002B77FA /* Cacheable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DADDA7236DA27A002B77FA /* Cacheable.swift */; };
+		17DADDAC236DA2D4002B77FA /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DADDAB236DA2D4002B77FA /* ImageLoader.swift */; };
+		17DADDAF236DABB6002B77FA /* Storage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17DADDAE236DABB6002B77FA /* Storage.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -145,7 +156,18 @@
 		172B2348236ADDB700DE6B89 /* PhotoTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = PhotoTests.swift; sourceTree = "<group>"; };
 		172B235C236B1EFF00DE6B89 /* MockRequester.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockRequester.swift; sourceTree = "<group>"; };
 		172B235E236B204400DE6B89 /* MockURLSession.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockURLSession.swift; sourceTree = "<group>"; };
+		172B2361236B2E5700DE6B89 /* ImageCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ImageCell.xib; sourceTree = "<group>"; };
+		172B2363236B348300DE6B89 /* ImageCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCell.swift; sourceTree = "<group>"; };
+		172B2367236B6C3700DE6B89 /* ImageViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageViewModel.swift; sourceTree = "<group>"; };
+		172B2369236B7BFE00DE6B89 /* LoadingFooter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoadingFooter.swift; sourceTree = "<group>"; };
+		172B236B236B7C2500DE6B89 /* LoadingFooter.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = LoadingFooter.xib; sourceTree = "<group>"; };
+		17A9A741236C7AFD008948E1 /* Debouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Debouncer.swift; sourceTree = "<group>"; };
 		17A9A743236C87F1008948E1 /* Identifiable.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = Identifiable.swift; sourceTree = "<group>"; };
+		17DADDA3236D9DDF002B77FA /* ImageCacher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacher.swift; sourceTree = "<group>"; };
+		17DADDA5236DA243002B77FA /* Image.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Image.swift; sourceTree = "<group>"; };
+		17DADDA7236DA27A002B77FA /* Cacheable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cacheable.swift; sourceTree = "<group>"; };
+		17DADDAB236DA2D4002B77FA /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
+		17DADDAE236DABB6002B77FA /* Storage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Storage.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -207,6 +229,7 @@
 		172B22B12369CE2C00DE6B89 /* FlickrSearch */ = {
 			isa = PBXGroup;
 			children = (
+				17DADDB0236DC1A3002B77FA /* ImageLoader */,
 				172B22B22369CE2C00DE6B89 /* AppDelegate.swift */,
 				172B22B62369CE2C00DE6B89 /* ViewController.swift */,
 				172B22B82369CE2C00DE6B89 /* Main.storyboard */,
@@ -426,6 +449,18 @@
 				172B235C236B1EFF00DE6B89 /* MockRequester.swift */,
 			);
 			path = Mocks;
+			sourceTree = "<group>";
+		};
+		17DADDB0236DC1A3002B77FA /* ImageLoader */ = {
+			isa = PBXGroup;
+			children = (
+				17DADDA7236DA27A002B77FA /* Cacheable.swift */,
+				17DADDA5236DA243002B77FA /* Image.swift */,
+				17DADDAE236DABB6002B77FA /* Storage.swift */,
+				17DADDA3236D9DDF002B77FA /* ImageCacher.swift */,
+				17DADDAB236DA2D4002B77FA /* ImageLoader.swift */,
+			);
+			path = ImageLoader;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -909,6 +944,7 @@
 				CLANG_ENABLE_MODULES = YES;
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
+				DEBUG_INFORMATION_FORMAT = "dwarf-with-dsym";
 				DEFINES_MODULE = YES;
 				DEVELOPMENT_TEAM = YMQZJ4527A;
 				DYLIB_COMPATIBILITY_VERSION = 1;
