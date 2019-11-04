@@ -20,9 +20,9 @@ final class RequesterTests: XCTestCase {
         )
         let session = MockURLSession()
         let requester = Requester(session: session)
-        _ = requester.requestData(with: request) { result in
+        _ = requester.requestData(with: request, callback: .init(queue: nil, callback: { result in
             XCTAssertEqual(result, .failure(.badRequest))
-        }
+        }))
     }
 
     func testReturnsError() {
@@ -39,9 +39,9 @@ final class RequesterTests: XCTestCase {
         session.sessionDataTaskStub = EmptyTask()
         session.dataTaskStub = (nil, nil, error)
         let requester = Requester(session: session)
-        _ = requester.requestData(with: request) { result in
+        _ = requester.requestData(with: request, callback: .init(queue: nil, callback: { result in
             XCTAssertEqual(result, .failure(.other(error: error)))
-        }
+        }))
     }
 
     func testReturnsNoResponse() {
@@ -57,9 +57,9 @@ final class RequesterTests: XCTestCase {
         session.sessionDataTaskStub = EmptyTask()
         session.dataTaskStub = (nil, nil, nil)
         let requester = Requester(session: session)
-        _ = requester.requestData(with: request) { result in
+        _ = requester.requestData(with: request, callback: .init(queue: nil, callback: { result in
             XCTAssertEqual(result, .failure(.noResponse))
-        }
+        }))
     }
 
     func testNonHTTPResponse() {
@@ -81,9 +81,9 @@ final class RequesterTests: XCTestCase {
         session.sessionDataTaskStub = EmptyTask()
         session.dataTaskStub = (Data(), response, nil)
         let requester = Requester(session: session)
-        _ = requester.requestData(with: request) { result in
+        _ = requester.requestData(with: request, callback: .init(queue: nil, callback: { result in
             XCTAssertEqual(result, .failure(.nonHTTPResponse(urlResponse: response)))
-        }
+        }))
     }
 
     func testBadStatusCode() {
@@ -105,9 +105,9 @@ final class RequesterTests: XCTestCase {
         session.sessionDataTaskStub = EmptyTask()
         session.dataTaskStub = (Data(), response, nil)
         let requester = Requester(session: session)
-        _ = requester.requestData(with: request) { result in
+        _ = requester.requestData(with: request, callback: .init(queue: nil, callback: { result in
             XCTAssertEqual(result, .failure(.statusCode(code: 404)))
-        }
+        }))
     }
 
     func testRequestModel() {
@@ -149,9 +149,9 @@ final class RequesterTests: XCTestCase {
         session.sessionDataTaskStub = EmptyTask()
         session.dataTaskStub = (data, response, nil)
         let requester = Requester(session: session)
-        _ = requester.requestModel(with: request) { result in
+        _ = requester.requestModel(with: request, callback: .init(queue: nil, callback: { result in
             XCTAssertEqual(result, .success(model))
-        }
+        }))
     }
 }
 

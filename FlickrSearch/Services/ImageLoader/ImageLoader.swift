@@ -1,24 +1,6 @@
 import UIKit
 import FlickrSearchAPI
 
-enum ImageLoadingError: Error, CustomDebugStringConvertible {
-    case api(APIError)
-    case badData(Data)
-
-    var debugDescription: String {
-        switch self {
-        case .api(let error):
-            return error.debugDescription
-        case .badData:
-            return "Bad data"
-        }
-    }
-}
-
-protocol ImageLoading {
-    func getImage(from url: URL, callbackQueue: DispatchQueue?, callback: @escaping (Result<Image, ImageLoadingError>) -> Void)
-}
-
 final class ImageLoader: ImageLoading {
     let api: FlickrSearchAPIType
     let cacher: ImageCacher
@@ -28,51 +10,47 @@ final class ImageLoader: ImageLoading {
         self.cacher = cacher
     }
 
-    func getImage(from url: URL, callbackQueue: DispatchQueue?, callback: @escaping (Result<Image, ImageLoadingError>) -> Void) {
-        getCachedImage(for: url, callbackQueue: callbackQueue) { [weak self] image in
+    func getImage(from url: URL, callback: Callback<Result<IdentifiableImage, ImageLoadingError>>) {
+        getCachedImage(for: url, callback: callback.chain { [weak self] image, callback in
             guard let self = self else { return }
             if let cachedImage = image {
-                callback(.success(cachedImage))
+                return callback.execute(with: .success(cachedImage))
             } else {
-                self.loadAndSaveImage(from: url, callbackQueue: callbackQueue, callback: callback)
+                self.loadAndSaveImage(from: url, callback: callback)
             }
-        }
+        })
     }
 
-    private func getCachedImage(for url: URL, callbackQueue: DispatchQueue?, callback: @escaping (Image?) -> Void) {
-        let id = imageID(for: url)
-        cacher.contains(forID: id, callbackQueue: callbackQueue) { [weak self] exists in
+    private func getCachedImage(for url: URL, callback: Callback<IdentifiableImage?>) {
+        let id = IdentifiableImage.imageID(for: url)
+        cacher.contains(forID: id, callback: callback.chain { [weak self] exists, callback in
             guard let self = self else { return }
-            guard exists else { return callback(nil) }
-            self.cacher.get(forID: id, callbackQueue: callbackQueue, callback: callback)
-        }
+            guard exists else { return callback.execute(with: nil) }
+            self.cacher.get(forID: id, callback: callback)
+        })
     }
 
-    private func loadAndSaveImage(from url: URL, callbackQueue: DispatchQueue?, callback: @escaping (Result<Image, ImageLoadingError>) -> Void) {
-        loadImage(from: url, callbackQueue: callbackQueue) { [weak self] result in
-            guard let self = self else { return }
+    private func loadAndSaveImage(from url: URL, callback: Callback<Result<IdentifiableImage, ImageLoadingError>>) {
+        loadImage(from: url, callback: callback.map { [weak self] result in
+            guard let self = self else { return result }
             if let image = try? result.get() {
                 self.cacher.set(model: image)
             }
-            callback(result)
-        }
+            return result
+        })
     }
 
-    private func loadImage(from url: URL, callbackQueue: DispatchQueue?, callback: @escaping (Result<Image, ImageLoadingError>) -> Void) {
-        api.data(from: url, callbackQueue: callbackQueue) { result in
+    private func loadImage(from url: URL, callback: Callback<Result<IdentifiableImage, ImageLoadingError>>) {
+        api.data(from: url, callback: callback.map { result in
             switch result {
             case .success(let data):
-                guard let image = Image(id: String(url.absoluteString.hashValue), data: data) else {
-                    return callback(.failure(.badData(data)))
+                guard let image = IdentifiableImage(url: url, data: data) else {
+                    return .failure(.badData(data))
                 }
-                callback(.success(image))
+                return .success(image)
             case .failure(let error):
-                callback(.failure(.api(error)))
+                return .failure(.api(error))
             }
-        }.resume()
-    }
-
-    private func imageID(for url: URL) -> String {
-        return String(url.absoluteString.hashValue)
+        }).resume()
     }
 }

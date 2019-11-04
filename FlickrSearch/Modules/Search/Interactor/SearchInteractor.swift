@@ -1,5 +1,7 @@
 import FlickrSearchAPI
 
+typealias ImageProvider = (URL, @escaping (Result<IdentifiableImage, ImageLoadingError>) -> Void) -> Void
+
 protocol SearchInteractorOutput: class {
     var lastPageNumber: Int { get }
     var itemsPerRow: Int { get }
@@ -14,13 +16,11 @@ protocol SearchInteractorOutput: class {
     func presentLoadingState()
 }
 
-typealias ImageProvider = (URL, @escaping (Result<Image, ImageLoadingError>) -> Void) -> Void
-
 final class SearchInteractor: SearchViewOutput {
     private let presenter: SearchInteractorOutput
     private let api: FlickrSearchAPIType
     private let imageLoader: ImageLoading
-    private let debouncer: Debouncing = Debouncer(interval: 0.3)
+    private let debouncer: Debouncing
 
     private var currentQuery: String?
     private var currentTask: Task?
@@ -33,10 +33,11 @@ final class SearchInteractor: SearchViewOutput {
         return presenter.totalItems
     }
 
-    init(presenter: SearchInteractorOutput, api: FlickrSearchAPIType, imageLoader: ImageLoading) {
+    init(presenter: SearchInteractorOutput, api: FlickrSearchAPIType, imageLoader: ImageLoading, debouncer: Debouncing) {
         self.presenter = presenter
         self.api = api
         self.imageLoader = imageLoader
+        self.debouncer = debouncer
     }
 
     func viewDidLoad() {
@@ -45,6 +46,9 @@ final class SearchInteractor: SearchViewOutput {
 
     func searchTextDidChange(_ searchText: String) {
         if searchText.isEmpty {
+            debouncer.cancel()
+            currentTask?.cancel()
+            currentTask = nil
             currentQuery = nil
             presenter.removeAllPhotos()
         } else {
@@ -63,7 +67,7 @@ final class SearchInteractor: SearchViewOutput {
     func viewModel(at index: Int) -> ImageViewModel? {
         return presenter.viewModel(at: index) { [weak self] url, callback in
             guard let self = self else { return }
-            self.imageLoader.getImage(from: url, callbackQueue: .main, callback: callback)
+            self.imageLoader.getImage(from: url, callback: .init(queue: .main, callback: callback))
         }
     }
 }
@@ -79,7 +83,7 @@ private extension SearchInteractor {
         let parameters = searchParameters(with: query, append: append)
         currentTask?.cancel()
         presenter.presentLoadingState()
-        currentTask = api.search(with: parameters, callbackQueue: .main) { [weak self] result in
+        currentTask = api.search(with: parameters, callback: .init(queue: .main) { [weak self] result in
             guard let self = self else { return }
             self.currentTask = nil
             switch result {
@@ -88,7 +92,7 @@ private extension SearchInteractor {
             case .failure(let error):
                 self.presenter.present(error: error)
             }
-        }
+        })
         currentTask?.resume()
     }
 }

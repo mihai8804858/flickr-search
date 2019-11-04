@@ -28,9 +28,9 @@ final class FlickrSearchAPITests: XCTestCase {
         let searchParameters = SearchParameters(query: "query", page: 1, pageSize: 100)
         requester.requestDataStubTask = EmptyTask()
         requester.requestDataStub = .success(data)
-        _ = api.search(with: searchParameters) { result in
+        _ = api.search(with: searchParameters, callback: .init(queue: nil, callback: { result in
             XCTAssertEqual(result, expectedResult)
-        }
+        }))
         XCTAssertTrue(requester.requestDataCallParameters.contains(where: { parameters in
             guard let searchRequest = parameters.0 as? SearchRequest else { return false }
             return searchRequest == SearchRequest(apiKey: "api_key", parameters: searchParameters)
@@ -44,12 +44,12 @@ final class FlickrSearchAPITests: XCTestCase {
         let searchParameters = SearchParameters(query: "query", page: 1, pageSize: 100)
         requester.requestDataStubTask = EmptyTask()
         requester.requestDataStub = expectedResult
-        _ = api.search(with: searchParameters) { result in
+        _ = api.search(with: searchParameters, callback: .init(queue: nil, callback: { result in
             switch result {
             case .success: XCTFail("Expected to fail")
             case .failure(let error): XCTAssertEqual(error, .statusCode(code: 404))
             }
-        }
+        }))
         XCTAssertTrue(requester.requestDataCallParameters.contains(where: { parameters in
             guard let searchRequest = parameters.0 as? SearchRequest else { return false }
             return searchRequest == SearchRequest(apiKey: "api_key", parameters: searchParameters)
@@ -63,9 +63,9 @@ final class FlickrSearchAPITests: XCTestCase {
         let expectedResult: Result<Data, APIError> = .success(Data())
         requester.requestDataStubTask = EmptyTask()
         requester.requestDataStub = expectedResult
-        _ = api.data(from: url) { result in
+        _ = api.data(from: url, callback: .init(queue: nil, callback: { result in
             XCTAssertEqual(result, expectedResult)
-        }
+        }))
         XCTAssertTrue(requester.requestDataCallParameters.contains(where: { parameters in
             guard let dataRequest = parameters.0 as? DataRequest else { return false }
             return dataRequest == DataRequest(url: url)!
@@ -79,9 +79,9 @@ final class FlickrSearchAPITests: XCTestCase {
         let expectedResult: Result<Data, APIError> = .failure(.statusCode(code: 404))
         requester.requestDataStubTask = EmptyTask()
         requester.requestDataStub = expectedResult
-        _ = api.data(from: url) { result in
+        _ = api.data(from: url, callback: .init(queue: nil, callback: { result in
             XCTAssertEqual(result, expectedResult)
-        }
+        }))
         XCTAssertTrue(requester.requestDataCallParameters.contains(where: { parameters in
             guard let dataRequest = parameters.0 as? DataRequest else { return false }
             return dataRequest == DataRequest(url: url)!

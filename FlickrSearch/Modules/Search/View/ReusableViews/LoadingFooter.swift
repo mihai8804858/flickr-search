@@ -11,12 +11,16 @@ final class LoadingFooter: UICollectionReusableView, StaticIdentifiable {
     }
 
     func show() {
-        activityIndicator.startAnimating()
-        activityIndicator.isHidden = false
+        onMain { [weak self] in
+            self?.activityIndicator.startAnimating()
+            self?.activityIndicator.isHidden = false
+        }
     }
 
     func hide() {
-        activityIndicator.stopAnimating()
-        activityIndicator.isHidden = true
+        onMain { [weak self] in
+            self?.activityIndicator.stopAnimating()
+            self?.activityIndicator.isHidden = true
+        }
     }
 }

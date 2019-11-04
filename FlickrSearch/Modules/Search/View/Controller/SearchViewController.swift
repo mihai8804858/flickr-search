@@ -1,24 +1,10 @@
 import UIKit
-import FlickrSearchAPI
-
-enum LoadAction {
-    case reloadData
-    case insert(indices: [IndexPath])
-}
-
-enum SearchViewState {
-    case empty
-    case noResults
-    case loading(resultsEmpty: Bool)
-    case loaded(action: LoadAction)
-    case failed(reasonTitle: String, reasonMessage: String)
-}
 
 protocol SearchViewOutput: class {
     var itemsPerRow: Int { get }
     var totalItems: Int { get }
-    func viewModel(at index: Int) -> ImageViewModel?
     func viewDidLoad()
+    func viewModel(at index: Int) -> ImageViewModel?
     func searchTextDidChange(_ searchText: String)
     func didScrollToBottom()
 }
@@ -113,17 +99,19 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
 
 extension SearchViewController: SearchPresenterOutput {
     func set(state: SearchViewState) {
-        switch state {
-        case .empty:
-            setEmptyState()
-        case .noResults:
-            setNoResultsState()
-        case .loading(let resultsEmpty):
-            setLoadingState(resultsEmpty: resultsEmpty)
-        case .loaded(let action):
-            setLoadedState(action: action)
-        case .failed(let reasonTitle, let reasonMessage):
-            setFailedState(title: reasonTitle, message: reasonMessage)
+        onMain { [weak self] in
+            switch state {
+            case .empty:
+                self?.setEmptyState()
+            case .noResults:
+                self?.setNoResultsState()
+            case .loading(let resultsEmpty):
+                self?.setLoadingState(resultsEmpty: resultsEmpty)
+            case .loaded(let type):
+                self?.setLoadedState(type: type)
+            case .failed(let reasonTitle, let reasonMessage):
+                self?.setFailedState(title: reasonTitle, message: reasonMessage)
+            }
         }
     }
 }
@@ -151,12 +139,12 @@ private extension SearchViewController {
         showActivityIndicator(resultsEmpty: resultsEmpty)
     }
 
-    func setLoadedState(action: LoadAction) {
+    func setLoadedState(type: ReloadType) {
         noResultsLabel.isHidden = true
         startTypingLabel.isHidden = true
         hideMainActivityIndicator()
         hideFooterActivityIndicator()
-        switch action {
+        switch type {
         case .reloadData:
             collectionView.reloadData()
             collectionView.scrollToItem(at: [0, 0], at: .top, animated: false)
@@ -166,7 +154,7 @@ private extension SearchViewController {
     }
 
     func setFailedState(title: String, message: String) {
-        setLoadedState(action: .reloadData)
+        setLoadedState(type: .reloadData)
         showAlert(title: title, message: message)
     }
 

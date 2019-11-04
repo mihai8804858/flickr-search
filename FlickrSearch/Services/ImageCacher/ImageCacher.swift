@@ -1,16 +1,5 @@
 import UIKit
-
-protocol Cacheable: Identifiable {
-    init?(id: String, data: Data)
-    func toData() -> Data?
-}
-
-protocol Caching {
-    associatedtype Model: Cacheable
-    func contains(forID id: String, callbackQueue: DispatchQueue?, callback: @escaping (Bool) -> Void)
-    func get(forID id: String, callbackQueue: DispatchQueue?, callback: @escaping (Model?) -> Void)
-    func set(model: Model)
-}
+import FlickrSearchAPI
 
 final class ImageCacher: Caching {
     private let storage: Atomic<Storage>
@@ -22,42 +11,32 @@ final class ImageCacher: Caching {
         createImagesDirectoryIfNeeded()
     }
 
-    func contains(forID id: String, callbackQueue: DispatchQueue?, callback: @escaping (Bool) -> Void) {
+    func contains(forID id: String, callback: Callback<Bool>) {
         workQueue.async { [weak self] in
             guard let self = self else { return }
             let diskURL = self.diskURL(for: id)
             let existsInCache = self.cache.execute { $0.object(forKey: id as NSString) != nil }
             let existsOnDisk = self.storage.execute { $0.fileExists(at: diskURL) }
-            let exists = existsInCache || existsOnDisk
-            if let queue = callbackQueue {
-                queue.async { callback(exists) }
-            } else {
-                callback(exists)
-            }
+            callback.execute(with: existsInCache || existsOnDisk)
         }
     }
 
-    func get(forID id: String, callbackQueue: DispatchQueue?, callback: @escaping (Image?) -> Void) {
-        workQueue.async { [weak self] in
-            let image: Image? = {
+    func get(forID id: String, callback: Callback<IdentifiableImage?>) {
+        workQueue.async {
+            callback.execute(with: { [weak self] in
                 guard let self = self else { return nil }
                 let diskURL = self.diskURL(for: id)
                 if let fromCache = self.cache.execute({ $0.object(forKey: id as NSString) }) {
-                    return Image(id: id, data: fromCache as Data)
+                    return IdentifiableImage(id: id, data: fromCache as Data)
                 } else if let fromDisk = self.storage.execute({ $0.contents(at: diskURL) }) {
-                    return Image(id: id, data: fromDisk)
+                    return IdentifiableImage(id: id, data: fromDisk)
                 }
                 return nil
-            }()
-            if let queue = callbackQueue {
-                queue.async { callback(image) }
-            } else {
-                callback(image)
-            }
+            }())
         }
     }
 
-    func set(model: Image) {
+    func set(model: IdentifiableImage) {
         workQueue.async { [weak self] in
             guard let self = self, let data = model.toData() else { return }
             let diskURL = self.diskURL(for: model.id)

@@ -29,7 +29,7 @@ final class ImageCell: UICollectionViewCell, StaticIdentifiable {
 
     private func loadPhoto(with model: ImageViewModel) {
         model.imageProvider { photoID, image in
-            DispatchQueue.main.async { [weak self] in
+            onMain { [weak self] in
                 guard let self = self, photoID == self.viewModel?.photoID else { return }
                 self.imageView.image = image
             }

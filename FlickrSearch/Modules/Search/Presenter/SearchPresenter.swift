@@ -28,7 +28,7 @@ final class SearchPresenter: SearchInteractorOutput {
     }
 
     var lastPageNumber: Int {
-        return pages.map { Int($0.pageNumber) }.max() ?? 0
+        return Int(pages.last?.pageNumber ?? 0)
     }
 
     func viewDidLoad() {
@@ -57,17 +57,18 @@ final class SearchPresenter: SearchInteractorOutput {
     }
 
     func present(photos: Photos, append: Bool) {
-        let action: LoadAction
-        if append {
-            let indices = indicesToAppend(count: photos.page.photos.count)
-            pages.append(photos.page)
-            action = .insert(indices: indices)
-        } else {
-            pages.removeAll()
-            pages = [photos.page]
-            action = .reloadData
-        }
-        view?.set(state: allPhotos.isEmpty ? .noResults : .loaded(action: action))
+        let type: ReloadType = {
+            if append {
+                let indices = indicesToAppend(count: photos.page.photos.count)
+                pages.append(photos.page)
+                return .insert(indices: indices)
+            } else {
+                pages.removeAll()
+                pages = [photos.page]
+                return .reloadData
+            }
+        }()
+        view?.set(state: allPhotos.isEmpty ? .noResults : .loaded(type: type))
     }
 
     func present(error: APIError) {
