@@ -31,7 +31,7 @@ final class FlickrSearchAPITests: XCTestCase {
         _ = api.search(with: searchParameters, callback: .init(queue: nil, callback: { result in
             XCTAssertEqual(result, expectedResult)
         }))
-        XCTAssertTrue(requester.requestDataCallParameters.contains(where: { parameters in
+        XCTAssertTrue(requester.requestDataFuncCheck.wasCalled(with: { parameters in
             guard let searchRequest = parameters.0 as? SearchRequest else { return false }
             return searchRequest == SearchRequest(apiKey: "api_key", parameters: searchParameters)
         }))
@@ -50,7 +50,7 @@ final class FlickrSearchAPITests: XCTestCase {
             case .failure(let error): XCTAssertEqual(error, .statusCode(code: 404))
             }
         }))
-        XCTAssertTrue(requester.requestDataCallParameters.contains(where: { parameters in
+        XCTAssertTrue(requester.requestDataFuncCheck.wasCalled(with: { parameters in
             guard let searchRequest = parameters.0 as? SearchRequest else { return false }
             return searchRequest == SearchRequest(apiKey: "api_key", parameters: searchParameters)
         }))
@@ -66,7 +66,7 @@ final class FlickrSearchAPITests: XCTestCase {
         _ = api.data(from: url, callback: .init(queue: nil, callback: { result in
             XCTAssertEqual(result, expectedResult)
         }))
-        XCTAssertTrue(requester.requestDataCallParameters.contains(where: { parameters in
+        XCTAssertTrue(requester.requestDataFuncCheck.wasCalled(with: { parameters in
             guard let dataRequest = parameters.0 as? DataRequest else { return false }
             return dataRequest == DataRequest(url: url)!
         }))
@@ -82,7 +82,7 @@ final class FlickrSearchAPITests: XCTestCase {
         _ = api.data(from: url, callback: .init(queue: nil, callback: { result in
             XCTAssertEqual(result, expectedResult)
         }))
-        XCTAssertTrue(requester.requestDataCallParameters.contains(where: { parameters in
+        XCTAssertTrue(requester.requestDataFuncCheck.wasCalled(with: { parameters in
             guard let dataRequest = parameters.0 as? DataRequest else { return false }
             return dataRequest == DataRequest(url: url)!
         }))

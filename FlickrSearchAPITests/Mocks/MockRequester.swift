@@ -1,12 +1,11 @@
 @testable import FlickrSearchAPI
 
 final class MockRequester: RequesterType {
-    var requestDataCallParameters: [(RequestType, Callback<Result<Data, APIError>>)] = []
     var requestDataStubTask: Task!
     var requestDataStub: Result<Data, APIError>!
-
+    let requestDataFuncCheck = FuncCheck<(RequestType, Callback<Result<Data, APIError>>)>()
     func requestData(with request: RequestType, callback: Callback<Result<Data, APIError>>) -> Task {
-        requestDataCallParameters.append((request, callback))
+        requestDataFuncCheck.call((request, callback))
         callback.execute(with: requestDataStub)
         return requestDataStubTask
     }
