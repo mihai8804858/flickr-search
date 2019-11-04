@@ -77,6 +77,13 @@
 		17ECA76523701C6500871FE4 /* SearchViewState.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ECA76423701C6500871FE4 /* SearchViewState.swift */; };
 		17ECA76A23701EB800871FE4 /* Utils.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ECA76923701EB800871FE4 /* Utils.swift */; };
 		17ECA76C23701F5300871FE4 /* Callback.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ECA76B23701F5300871FE4 /* Callback.swift */; };
+		17ECA76F23703D0B00871FE4 /* SearchRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ECA76E23703D0B00871FE4 /* SearchRouter.swift */; };
+		17ECA77C23703F9100871FE4 /* FullscreenImageBuilder.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ECA77223703F9100871FE4 /* FullscreenImageBuilder.swift */; };
+		17ECA77D23703F9100871FE4 /* FullscreenImageInteractor.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ECA77423703F9100871FE4 /* FullscreenImageInteractor.swift */; };
+		17ECA77E23703F9100871FE4 /* FullscreenImage.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 17ECA77723703F9100871FE4 /* FullscreenImage.storyboard */; };
+		17ECA77F23703F9100871FE4 /* FullscreenImageViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ECA77923703F9100871FE4 /* FullscreenImageViewController.swift */; };
+		17ECA78023703F9100871FE4 /* FullscreenImagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ECA77B23703F9100871FE4 /* FullscreenImagePresenter.swift */; };
+		17ECA783237055FF00871FE4 /* MainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ECA782237055FF00871FE4 /* MainRouter.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -200,6 +207,13 @@
 		17ECA76423701C6500871FE4 /* SearchViewState.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchViewState.swift; sourceTree = "<group>"; };
 		17ECA76923701EB800871FE4 /* Utils.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Utils.swift; sourceTree = "<group>"; };
 		17ECA76B23701F5300871FE4 /* Callback.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Callback.swift; sourceTree = "<group>"; };
+		17ECA76E23703D0B00871FE4 /* SearchRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchRouter.swift; sourceTree = "<group>"; };
+		17ECA77223703F9100871FE4 /* FullscreenImageBuilder.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullscreenImageBuilder.swift; sourceTree = "<group>"; };
+		17ECA77423703F9100871FE4 /* FullscreenImageInteractor.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullscreenImageInteractor.swift; sourceTree = "<group>"; };
+		17ECA77823703F9100871FE4 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/FullscreenImage.storyboard; sourceTree = "<group>"; };
+		17ECA77923703F9100871FE4 /* FullscreenImageViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullscreenImageViewController.swift; sourceTree = "<group>"; };
+		17ECA77B23703F9100871FE4 /* FullscreenImagePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullscreenImagePresenter.swift; sourceTree = "<group>"; };
+		17ECA782237055FF00871FE4 /* MainRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRouter.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -496,6 +510,7 @@
 			isa = PBXGroup;
 			children = (
 				17ECA745236F29E600871FE4 /* Builder */,
+				17ECA76D23703CF900871FE4 /* Router */,
 				17ECA739236EFAFE00871FE4 /* View */,
 				17ECA76123701BEA00871FE4 /* Models */,
 				17ECA73A236EFB5B00871FE4 /* Interactor */,
@@ -507,6 +522,7 @@
 		17ECA734236EFA5600871FE4 /* Services */ = {
 			isa = PBXGroup;
 			children = (
+				17ECA781237055F000871FE4 /* Routing */,
 				17ECA735236EFA7A00871FE4 /* Debouncer */,
 				17ECA737236EFAB600871FE4 /* ImageCacher */,
 				17DADDB0236DC1A3002B77FA /* ImageLoader */,
@@ -612,6 +628,7 @@
 			isa = PBXGroup;
 			children = (
 				17ECA733236EFA4500871FE4 /* Search */,
+				17ECA77023703EDE00871FE4 /* FullscreenImage */,
 			);
 			path = Modules;
 			sourceTree = "<group>";
@@ -651,6 +668,74 @@
 				17ECA76923701EB800871FE4 /* Utils.swift */,
 			);
 			path = Utils;
+			sourceTree = "<group>";
+		};
+		17ECA76D23703CF900871FE4 /* Router */ = {
+			isa = PBXGroup;
+			children = (
+				17ECA76E23703D0B00871FE4 /* SearchRouter.swift */,
+			);
+			path = Router;
+			sourceTree = "<group>";
+		};
+		17ECA77023703EDE00871FE4 /* FullscreenImage */ = {
+			isa = PBXGroup;
+			children = (
+				17ECA77123703F9100871FE4 /* Builder */,
+				17ECA77523703F9100871FE4 /* View */,
+				17ECA77323703F9100871FE4 /* Interactor */,
+				17ECA77A23703F9100871FE4 /* Presenter */,
+			);
+			path = FullscreenImage;
+			sourceTree = "<group>";
+		};
+		17ECA77123703F9100871FE4 /* Builder */ = {
+			isa = PBXGroup;
+			children = (
+				17ECA77223703F9100871FE4 /* FullscreenImageBuilder.swift */,
+			);
+			path = Builder;
+			sourceTree = "<group>";
+		};
+		17ECA77323703F9100871FE4 /* Interactor */ = {
+			isa = PBXGroup;
+			children = (
+				17ECA77423703F9100871FE4 /* FullscreenImageInteractor.swift */,
+			);
+			path = Interactor;
+			sourceTree = "<group>";
+		};
+		17ECA77523703F9100871FE4 /* View */ = {
+			isa = PBXGroup;
+			children = (
+				17ECA77623703F9100871FE4 /* Controller */,
+			);
+			path = View;
+			sourceTree = "<group>";
+		};
+		17ECA77623703F9100871FE4 /* Controller */ = {
+			isa = PBXGroup;
+			children = (
+				17ECA77723703F9100871FE4 /* FullscreenImage.storyboard */,
+				17ECA77923703F9100871FE4 /* FullscreenImageViewController.swift */,
+			);
+			path = Controller;
+			sourceTree = "<group>";
+		};
+		17ECA77A23703F9100871FE4 /* Presenter */ = {
+			isa = PBXGroup;
+			children = (
+				17ECA77B23703F9100871FE4 /* FullscreenImagePresenter.swift */,
+			);
+			path = Presenter;
+			sourceTree = "<group>";
+		};
+		17ECA781237055F000871FE4 /* Routing */ = {
+			isa = PBXGroup;
+			children = (
+				17ECA782237055FF00871FE4 /* MainRouter.swift */,
+			);
+			path = Routing;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -794,6 +879,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				172B22BF2369CE2D00DE6B89 /* LaunchScreen.storyboard in Resources */,
+				17ECA77E23703F9100871FE4 /* FullscreenImage.storyboard in Resources */,
 				172B2362236B2E5700DE6B89 /* ImageCell.xib in Resources */,
 				172B236C236B7C2500DE6B89 /* LoadingFooter.xib in Resources */,
 				172B22FA2369D08200DE6B89 /* Assets.xcassets in Resources */,
@@ -832,17 +918,21 @@
 				17ECA74C236F759000871FE4 /* StoryboardInstantiable.swift in Sources */,
 				17ECA76323701BF400871FE4 /* ReloadType.swift in Sources */,
 				172B22B72369CE2C00DE6B89 /* SearchViewController.swift in Sources */,
+				17ECA76F23703D0B00871FE4 /* SearchRouter.swift in Sources */,
 				17DADDB2236DD3E0002B77FA /* IdentifiableImage.swift in Sources */,
 				17ECA75623701B0800871FE4 /* Storage.swift in Sources */,
 				17ECA76A23701EB800871FE4 /* Utils.swift in Sources */,
 				17ECA741236EFB9B00871FE4 /* SearchPresenter.swift in Sources */,
 				17ECA747236F29F200871FE4 /* SearchBuilder.swift in Sources */,
+				17ECA77F23703F9100871FE4 /* FullscreenImageViewController.swift in Sources */,
 				172B236A236B7BFE00DE6B89 /* LoadingFooter.swift in Sources */,
 				17ECA76523701C6500871FE4 /* SearchViewState.swift in Sources */,
 				17ECA744236F19A700871FE4 /* Atomic.swift in Sources */,
+				17ECA77C23703F9100871FE4 /* FullscreenImageBuilder.swift in Sources */,
 				172B22B32369CE2C00DE6B89 /* AppDelegate.swift in Sources */,
 				17DADDB5236DD3E0002B77FA /* ImageLoader.swift in Sources */,
 				172B2368236B6C3700DE6B89 /* ImageViewModel.swift in Sources */,
+				17ECA783237055FF00871FE4 /* MainRouter.swift in Sources */,
 				17ECA74A236F710100871FE4 /* UICollectionViewExtensions.swift in Sources */,
 				17ECA75823701B2400871FE4 /* FileManagerExtensions.swift in Sources */,
 				17ECA73F236EFB9200871FE4 /* SearchInteractor.swift in Sources */,
@@ -851,10 +941,12 @@
 				17ECA75E23701B7700871FE4 /* ImageLoading.swift in Sources */,
 				17DADDB4236DD3E0002B77FA /* ImageCacher.swift in Sources */,
 				17ECA76023701B9A00871FE4 /* ImageLoadingError.swift in Sources */,
+				17ECA78023703F9100871FE4 /* FullscreenImagePresenter.swift in Sources */,
 				172B2364236B348300DE6B89 /* ImageCell.swift in Sources */,
 				17ECA75423701AF000871FE4 /* Debouncing.swift in Sources */,
 				17A9A742236C7AFD008948E1 /* Debouncer.swift in Sources */,
 				17ECA74F236F77E300871FE4 /* StaticIdentifiable.swift in Sources */,
+				17ECA77D23703F9100871FE4 /* FullscreenImageInteractor.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -954,6 +1046,14 @@
 				172B22BE2369CE2D00DE6B89 /* Base */,
 			);
 			name = LaunchScreen.storyboard;
+			sourceTree = "<group>";
+		};
+		17ECA77723703F9100871FE4 /* FullscreenImage.storyboard */ = {
+			isa = PBXVariantGroup;
+			children = (
+				17ECA77823703F9100871FE4 /* Base */,
+			);
+			name = FullscreenImage.storyboard;
 			sourceTree = "<group>";
 		};
 /* End PBXVariantGroup section */

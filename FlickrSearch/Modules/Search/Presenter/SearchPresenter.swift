@@ -6,6 +6,7 @@ protocol SearchPresenterOutput: class {
 
 final class SearchPresenter: SearchInteractorOutput {
     private weak var view: SearchPresenterOutput?
+    private let router: SearchRouting
     private var pages: [PhotosPage] = []
 
     private var allPhotos: [Photo] {
@@ -23,8 +24,9 @@ final class SearchPresenter: SearchInteractorOutput {
         return currentPage.pageNumber < currentPage.totalPagesCount
     }
 
-    init(view: SearchPresenterOutput?) {
+    init(view: SearchPresenterOutput?, router: SearchRouting) {
         self.view = view
+        self.router = router
     }
 
     var lastPageNumber: Int {
@@ -36,8 +38,7 @@ final class SearchPresenter: SearchInteractorOutput {
     }
 
     func viewModel(at index: Int, imageProvider: @escaping ImageProvider) -> ImageViewModel? {
-        guard 0..<totalItems ~= index else { return nil }
-        let photo = allPhotos[index]
+        guard let photo = getPhoto(at: index) else { return nil }
         return ImageViewModel(photoID: photo.id) { callback in
             guard let url = photo.sourceURL else { return }
             imageProvider(url) { result in
@@ -79,9 +80,19 @@ final class SearchPresenter: SearchInteractorOutput {
     func presentLoadingState() {
         view?.set(state: .loading(resultsEmpty: allPhotos.isEmpty))
     }
+
+    func didSelectItem(at index: Int, imageProvider: @escaping ImageProvider) {
+        guard let photo = getPhoto(at: index), photo.sourceURL != nil && photo.farm != 0 else { return }
+        router.presentFullscreenImage(for: photo, imageProvider: imageProvider)
+    }
 }
 
 private extension SearchPresenter {
+    private func getPhoto(at index: Int) -> Photo? {
+        guard 0..<totalItems ~= index else { return nil }
+        return allPhotos[index]
+    }
+
     func indicesToAppend(count: Int) -> [IndexPath] {
         let startIndex = totalItems
         let endIndex = startIndex + count

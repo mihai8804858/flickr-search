@@ -7,8 +7,9 @@ final class AppDelegate: UIResponder, UIApplicationDelegate {
 
     func application(_ application: UIApplication,
                      didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
-        window = UIWindow(frame: UIScreen.main.bounds)
-        window?.rootViewController = SearchBuilder().buildModule()
+        let window = UIWindow(frame: UIScreen.main.bounds)
+        self.window = window
+        MainRouter(window: window).navigateToRootViewController()
 
         return true
     }

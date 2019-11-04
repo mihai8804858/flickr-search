@@ -5,6 +5,7 @@ protocol SearchViewOutput: class {
     var totalItems: Int { get }
     func viewDidLoad()
     func viewModel(at index: Int) -> ImageViewModel?
+    func didSelectItem(at index: Int)
     func searchTextDidChange(_ searchText: String)
     func didScrollToBottom()
 }
@@ -13,11 +14,11 @@ final class SearchViewController: UIViewController, StoryboardInstantiable {
     static let storyboardName = "Search"
     static let identifier = "SearchViewController"
 
-    @IBOutlet weak var collectionView: UICollectionView!
-    @IBOutlet weak var searchBar: UISearchBar!
-    @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
-    @IBOutlet weak var noResultsLabel: UILabel!
-    @IBOutlet weak var startTypingLabel: UILabel!
+    @IBOutlet private weak var collectionView: UICollectionView!
+    @IBOutlet private weak var searchBar: UISearchBar!
+    @IBOutlet private weak var activityIndicator: UIActivityIndicatorView!
+    @IBOutlet private weak var noResultsLabel: UILabel!
+    @IBOutlet private weak var startTypingLabel: UILabel!
 
     var interactor: SearchViewOutput!
 
@@ -40,6 +41,10 @@ final class SearchViewController: UIViewController, StoryboardInstantiable {
 extension SearchViewController: UISearchBarDelegate {
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
         interactor.searchTextDidChange(searchText)
+    }
+
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        dismissKeyboard()
     }
 }
 
@@ -66,6 +71,10 @@ extension SearchViewController: UICollectionViewDataSource {
 }
 
 extension SearchViewController: UICollectionViewDelegateFlowLayout {
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        interactor.didSelectItem(at: indexPath.row)
+    }
+
     func collectionView(_ collectionView: UICollectionView,
                         layout collectionViewLayout: UICollectionViewLayout,
                         sizeForItemAt indexPath: IndexPath) -> CGSize {
@@ -90,10 +99,6 @@ extension SearchViewController: UICollectionViewDelegateFlowLayout {
         if scrollView.contentOffset.y == bottomOffset {
             interactor.didScrollToBottom()
         }
-    }
-
-    func scrollViewWillBeginDragging(_ scrollView: UIScrollView) {
-        dismissKeyboard()
     }
 }
 
@@ -200,10 +205,6 @@ private extension SearchViewController {
         present(controller, animated: true)
     }
 
-    @objc func dismissKeyboard() {
-        searchBar.resignFirstResponder()
-    }
-
     func configureSearchBar() {
         searchBar.backgroundImage = UIImage()
         searchBar.delegate = self
@@ -219,6 +220,11 @@ private extension SearchViewController {
 
     func configureKeyboard() {
         let tapGesture = UITapGestureRecognizer(target: self, action: #selector(dismissKeyboard))
+        tapGesture.cancelsTouchesInView = false
         view.addGestureRecognizer(tapGesture)
+    }
+
+    @objc func dismissKeyboard() {
+        searchBar.resignFirstResponder()
     }
 }

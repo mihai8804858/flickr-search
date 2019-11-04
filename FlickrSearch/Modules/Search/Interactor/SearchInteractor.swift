@@ -10,6 +10,7 @@ protocol SearchInteractorOutput: class {
 
     func viewDidLoad()
     func viewModel(at index: Int, imageProvider: @escaping ImageProvider) -> ImageViewModel?
+    func didSelectItem(at index: Int, imageProvider: @escaping ImageProvider)
     func removeAllPhotos()
     func present(photos: Photos, append: Bool)
     func present(error: APIError)
@@ -69,6 +70,13 @@ final class SearchInteractor: SearchViewOutput {
             guard let self = self else { return }
             self.imageLoader.getImage(from: url, callback: .init(queue: .main, callback: callback))
         }
+    }
+
+    func didSelectItem(at index: Int) {
+        presenter.didSelectItem(at: index) { [weak self] url, callback in
+           guard let self = self else { return }
+           self.imageLoader.getImage(from: url, callback: .init(queue: .main, callback: callback))
+       }
     }
 }
 

@@ -16,8 +16,8 @@
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Hai-Rb-j3n">
-                                <rect key="frame" x="0.0" y="95" width="414" height="767"/>
+                            <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" keyboardDismissMode="onDrag" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="Hai-Rb-j3n">
+                                <rect key="frame" x="0.0" y="100" width="414" height="762"/>
                                 <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="10" id="Oeb-bX-8D7">
                                     <size key="itemSize" width="50" height="50"/>
@@ -27,16 +27,11 @@
                                 </collectionViewFlowLayout>
                                 <cells/>
                             </collectionView>
-                            <searchBar contentMode="redraw" barStyle="black" id="dkr-6x-vge">
-                                <rect key="frame" x="0.0" y="39" width="414" height="818"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
-                                <color key="backgroundColor" red="0.1176470588" green="0.12549019610000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
+                            <searchBar contentMode="redraw" barStyle="black" translatesAutoresizingMaskIntoConstraints="NO" id="awK-Ib-sHe">
+                                <rect key="frame" x="0.0" y="44" width="414" height="56"/>
+                                <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                                 <color key="barTintColor" red="0.1176470588" green="0.12549019610000001" blue="0.13725490200000001" alpha="1" colorSpace="calibratedRGB"/>
-                                <textInputTraits key="textInputTraits" autocorrectionType="no" spellCheckingType="no" keyboardAppearance="alert" returnKeyType="search"/>
-                                <scopeButtonTitles>
-                                    <string>Title</string>
-                                    <string>Title</string>
-                                </scopeButtonTitles>
+                                <textInputTraits key="textInputTraits" keyboardAppearance="alert" returnKeyType="search"/>
                             </searchBar>
                             <activityIndicatorView hidden="YES" opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="qa4-Bc-Pni">
                                 <rect key="frame" x="188.5" y="429.5" width="37" height="37"/>
@@ -64,13 +59,16 @@ you're looking for.</string>
                             <constraint firstItem="ibI-Zc-Dzb" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="2vW-C3-w3M"/>
                             <constraint firstItem="iN9-Bn-FjK" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="3yW-X9-ArP"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Hai-Rb-j3n" secondAttribute="trailing" id="9Ec-cR-43q"/>
+                            <constraint firstItem="awK-Ib-sHe" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Gm9-wY-fE8"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="Hai-Rb-j3n" secondAttribute="bottom" id="KzM-j6-WEr"/>
+                            <constraint firstItem="Hai-Rb-j3n" firstAttribute="top" secondItem="awK-Ib-sHe" secondAttribute="bottom" id="LZk-zY-mpT"/>
                             <constraint firstItem="iN9-Bn-FjK" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="M4b-Kk-N34"/>
                             <constraint firstItem="ibI-Zc-Dzb" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="MYb-od-z7x"/>
+                            <constraint firstItem="awK-Ib-sHe" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="NsH-0S-52X"/>
                             <constraint firstItem="qa4-Bc-Pni" firstAttribute="centerX" secondItem="8bC-Xf-vdC" secondAttribute="centerX" id="d6K-2o-4M0"/>
                             <constraint firstItem="Hai-Rb-j3n" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="ect-PH-0Dt"/>
                             <constraint firstItem="qa4-Bc-Pni" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="nMU-Px-7CJ"/>
-                            <constraint firstItem="Hai-Rb-j3n" firstAttribute="top" secondItem="dkr-6x-vge" secondAttribute="bottom" id="qZT-QH-GlN"/>
+                            <constraint firstItem="awK-Ib-sHe" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="tl4-jz-hQx"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -78,13 +76,13 @@ you're looking for.</string>
                         <outlet property="activityIndicator" destination="qa4-Bc-Pni" id="4co-Jl-5Hz"/>
                         <outlet property="collectionView" destination="Hai-Rb-j3n" id="1Mh-h7-DTk"/>
                         <outlet property="noResultsLabel" destination="ibI-Zc-Dzb" id="zfz-fL-dvr"/>
-                        <outlet property="searchBar" destination="dkr-6x-vge" id="lgO-Wr-dEL"/>
+                        <outlet property="searchBar" destination="awK-Ib-sHe" id="98R-Tu-Jss"/>
                         <outlet property="startTypingLabel" destination="iN9-Bn-FjK" id="FaW-Z5-1oy"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="139" y="138"/>
+            <point key="canvasLocation" x="137.68115942028987" y="137.94642857142856"/>
         </scene>
     </scenes>
 </document>
