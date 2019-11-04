@@ -11,7 +11,6 @@
 		172B22B72369CE2C00DE6B89 /* SearchViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172B22B62369CE2C00DE6B89 /* SearchViewController.swift */; };
 		172B22BA2369CE2C00DE6B89 /* Search.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 172B22B82369CE2C00DE6B89 /* Search.storyboard */; };
 		172B22BF2369CE2D00DE6B89 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 172B22BD2369CE2D00DE6B89 /* LaunchScreen.storyboard */; };
-		172B22CA2369CE2D00DE6B89 /* FlickrSearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 172B22C92369CE2D00DE6B89 /* FlickrSearchTests.swift */; };
 		172B22E22369D00F00DE6B89 /* FlickrSearchAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 172B22D92369D00F00DE6B89 /* FlickrSearchAPI.framework */; };
 		172B22EE2369D00F00DE6B89 /* FlickrSearchAPI.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 172B22D92369D00F00DE6B89 /* FlickrSearchAPI.framework */; };
 		172B22EF2369D00F00DE6B89 /* FlickrSearchAPI.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 172B22D92369D00F00DE6B89 /* FlickrSearchAPI.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -86,6 +85,25 @@
 		17ECA783237055FF00871FE4 /* MainRouter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ECA782237055FF00871FE4 /* MainRouter.swift */; };
 		17ECA787237058F500871FE4 /* FuncCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ECA785237057E700871FE4 /* FuncCheck.swift */; };
 		17ECA788237058F600871FE4 /* FuncCheck.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ECA785237057E700871FE4 /* FuncCheck.swift */; };
+		17ECA78B23705CB700871FE4 /* MockDebouncer.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ECA78A23705CB700871FE4 /* MockDebouncer.swift */; };
+		17ECA78D23705D1400871FE4 /* MockStorage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ECA78C23705D1400871FE4 /* MockStorage.swift */; };
+		17ECA79123705EAF00871FE4 /* MockImageCaching.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ECA79023705EAF00871FE4 /* MockImageCaching.swift */; };
+		17ECA79323705F3E00871FE4 /* MockImageLoading.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ECA79223705F3E00871FE4 /* MockImageLoading.swift */; };
+		17ECA79A23705FE900871FE4 /* MockSearchView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ECA79923705FE900871FE4 /* MockSearchView.swift */; };
+		17ECA79C2370603900871FE4 /* MockSearchPresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ECA79B2370603900871FE4 /* MockSearchPresenter.swift */; };
+		17ECA79E2370611E00871FE4 /* MockFullscreenImageView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ECA79D2370611E00871FE4 /* MockFullscreenImageView.swift */; };
+		17ECA7A02370617800871FE4 /* MockFullscreenImagePresenter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ECA79F2370617800871FE4 /* MockFullscreenImagePresenter.swift */; };
+		17ECA7A22370666D00871FE4 /* FullscreenImageInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ECA7A12370666D00871FE4 /* FullscreenImageInteractorTests.swift */; };
+		17ECA7A42370679900871FE4 /* FullscreenImagePresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ECA7A32370679900871FE4 /* FullscreenImagePresenterTests.swift */; };
+		17ECA7A62370693F00871FE4 /* SearchInteractorTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ECA7A52370693F00871FE4 /* SearchInteractorTests.swift */; };
+		17ECA7A82370694900871FE4 /* SearchPresenterTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ECA7A72370694900871FE4 /* SearchPresenterTests.swift */; };
+		17ECA7AA237069BF00871FE4 /* MockFlickrSearchAPI.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ECA7A9237069BF00871FE4 /* MockFlickrSearchAPI.swift */; };
+		17ECA7B823707E2300871FE4 /* MockSearchRouting.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ECA7B723707E2300871FE4 /* MockSearchRouting.swift */; };
+		17ECA7BC237084ED00871FE4 /* DebouncerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ECA7BB237084ED00871FE4 /* DebouncerTests.swift */; };
+		17ECA7BF237084FF00871FE4 /* ImageCacherTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ECA7BE237084FF00871FE4 /* ImageCacherTests.swift */; };
+		17ECA7C22370850C00871FE4 /* ImageLoaderTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ECA7C12370850C00871FE4 /* ImageLoaderTests.swift */; };
+		17ECA7C42370A1A200871FE4 /* MockUIImage.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ECA7C32370A1A200871FE4 /* MockUIImage.swift */; };
+		17ECA7C62370AE4E00871FE4 /* MockTask.swift in Sources */ = {isa = PBXBuildFile; fileRef = 17ECA7C52370AE4E00871FE4 /* MockTask.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -140,7 +158,6 @@
 		172B22B92369CE2C00DE6B89 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/Search.storyboard; sourceTree = "<group>"; };
 		172B22BE2369CE2D00DE6B89 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		172B22C52369CE2D00DE6B89 /* FlickrSearchTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlickrSearchTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		172B22C92369CE2D00DE6B89 /* FlickrSearchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FlickrSearchTests.swift; sourceTree = "<group>"; };
 		172B22D92369D00F00DE6B89 /* FlickrSearchAPI.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = FlickrSearchAPI.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		172B22E12369D00F00DE6B89 /* FlickrSearchAPITests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = FlickrSearchAPITests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		172B22F82369D08200DE6B89 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
@@ -217,6 +234,25 @@
 		17ECA77B23703F9100871FE4 /* FullscreenImagePresenter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = FullscreenImagePresenter.swift; sourceTree = "<group>"; };
 		17ECA782237055FF00871FE4 /* MainRouter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MainRouter.swift; sourceTree = "<group>"; };
 		17ECA785237057E700871FE4 /* FuncCheck.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FuncCheck.swift; sourceTree = "<group>"; };
+		17ECA78A23705CB700871FE4 /* MockDebouncer.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockDebouncer.swift; sourceTree = "<group>"; };
+		17ECA78C23705D1400871FE4 /* MockStorage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockStorage.swift; sourceTree = "<group>"; };
+		17ECA79023705EAF00871FE4 /* MockImageCaching.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockImageCaching.swift; sourceTree = "<group>"; };
+		17ECA79223705F3E00871FE4 /* MockImageLoading.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockImageLoading.swift; sourceTree = "<group>"; };
+		17ECA79923705FE900871FE4 /* MockSearchView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSearchView.swift; sourceTree = "<group>"; };
+		17ECA79B2370603900871FE4 /* MockSearchPresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSearchPresenter.swift; sourceTree = "<group>"; };
+		17ECA79D2370611E00871FE4 /* MockFullscreenImageView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFullscreenImageView.swift; sourceTree = "<group>"; };
+		17ECA79F2370617800871FE4 /* MockFullscreenImagePresenter.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFullscreenImagePresenter.swift; sourceTree = "<group>"; };
+		17ECA7A12370666D00871FE4 /* FullscreenImageInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullscreenImageInteractorTests.swift; sourceTree = "<group>"; };
+		17ECA7A32370679900871FE4 /* FullscreenImagePresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FullscreenImagePresenterTests.swift; sourceTree = "<group>"; };
+		17ECA7A52370693F00871FE4 /* SearchInteractorTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchInteractorTests.swift; sourceTree = "<group>"; };
+		17ECA7A72370694900871FE4 /* SearchPresenterTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchPresenterTests.swift; sourceTree = "<group>"; };
+		17ECA7A9237069BF00871FE4 /* MockFlickrSearchAPI.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockFlickrSearchAPI.swift; sourceTree = "<group>"; };
+		17ECA7B723707E2300871FE4 /* MockSearchRouting.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockSearchRouting.swift; sourceTree = "<group>"; };
+		17ECA7BB237084ED00871FE4 /* DebouncerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DebouncerTests.swift; sourceTree = "<group>"; };
+		17ECA7BE237084FF00871FE4 /* ImageCacherTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacherTests.swift; sourceTree = "<group>"; };
+		17ECA7C12370850C00871FE4 /* ImageLoaderTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoaderTests.swift; sourceTree = "<group>"; };
+		17ECA7C32370A1A200871FE4 /* MockUIImage.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockUIImage.swift; sourceTree = "<group>"; };
+		17ECA7C52370AE4E00871FE4 /* MockTask.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MockTask.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -291,7 +327,9 @@
 		172B22C82369CE2D00DE6B89 /* FlickrSearchTests */ = {
 			isa = PBXGroup;
 			children = (
-				172B22C92369CE2D00DE6B89 /* FlickrSearchTests.swift */,
+				17ECA78923705C7C00871FE4 /* Mocks */,
+				17ECA7BA237084D900871FE4 /* Services */,
+				17ECA79423705FBE00871FE4 /* Modules */,
 				172B22FC2369D09900DE6B89 /* SupportingFiles */,
 			);
 			path = FlickrSearchTests;
@@ -750,6 +788,78 @@
 			path = TestsCommon;
 			sourceTree = "<group>";
 		};
+		17ECA78923705C7C00871FE4 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				17ECA78A23705CB700871FE4 /* MockDebouncer.swift */,
+				17ECA78C23705D1400871FE4 /* MockStorage.swift */,
+				17ECA79023705EAF00871FE4 /* MockImageCaching.swift */,
+				17ECA79223705F3E00871FE4 /* MockImageLoading.swift */,
+				17ECA7C52370AE4E00871FE4 /* MockTask.swift */,
+				17ECA7A9237069BF00871FE4 /* MockFlickrSearchAPI.swift */,
+				17ECA7C32370A1A200871FE4 /* MockUIImage.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		17ECA79423705FBE00871FE4 /* Modules */ = {
+			isa = PBXGroup;
+			children = (
+				17ECA79523705FC400871FE4 /* Search */,
+				17ECA79623705FC900871FE4 /* FullscreenImage */,
+			);
+			path = Modules;
+			sourceTree = "<group>";
+		};
+		17ECA79523705FC400871FE4 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				17ECA79723705FDA00871FE4 /* Mocks */,
+				17ECA7A52370693F00871FE4 /* SearchInteractorTests.swift */,
+				17ECA7A72370694900871FE4 /* SearchPresenterTests.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		17ECA79623705FC900871FE4 /* FullscreenImage */ = {
+			isa = PBXGroup;
+			children = (
+				17ECA79823705FDE00871FE4 /* Mocks */,
+				17ECA7A12370666D00871FE4 /* FullscreenImageInteractorTests.swift */,
+				17ECA7A32370679900871FE4 /* FullscreenImagePresenterTests.swift */,
+			);
+			path = FullscreenImage;
+			sourceTree = "<group>";
+		};
+		17ECA79723705FDA00871FE4 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				17ECA79923705FE900871FE4 /* MockSearchView.swift */,
+				17ECA79B2370603900871FE4 /* MockSearchPresenter.swift */,
+				17ECA7B723707E2300871FE4 /* MockSearchRouting.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		17ECA79823705FDE00871FE4 /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				17ECA79D2370611E00871FE4 /* MockFullscreenImageView.swift */,
+				17ECA79F2370617800871FE4 /* MockFullscreenImagePresenter.swift */,
+			);
+			path = Mocks;
+			sourceTree = "<group>";
+		};
+		17ECA7BA237084D900871FE4 /* Services */ = {
+			isa = PBXGroup;
+			children = (
+				17ECA7BB237084ED00871FE4 /* DebouncerTests.swift */,
+				17ECA7BE237084FF00871FE4 /* ImageCacherTests.swift */,
+				17ECA7C12370850C00871FE4 /* ImageLoaderTests.swift */,
+			);
+			path = Services;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXHeadersBuildPhase section */
@@ -966,8 +1076,26 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				17ECA79323705F3E00871FE4 /* MockImageLoading.swift in Sources */,
+				17ECA7A22370666D00871FE4 /* FullscreenImageInteractorTests.swift in Sources */,
 				17ECA788237058F600871FE4 /* FuncCheck.swift in Sources */,
-				172B22CA2369CE2D00DE6B89 /* FlickrSearchTests.swift in Sources */,
+				17ECA7A42370679900871FE4 /* FullscreenImagePresenterTests.swift in Sources */,
+				17ECA7A82370694900871FE4 /* SearchPresenterTests.swift in Sources */,
+				17ECA79A23705FE900871FE4 /* MockSearchView.swift in Sources */,
+				17ECA7C62370AE4E00871FE4 /* MockTask.swift in Sources */,
+				17ECA79C2370603900871FE4 /* MockSearchPresenter.swift in Sources */,
+				17ECA7BF237084FF00871FE4 /* ImageCacherTests.swift in Sources */,
+				17ECA78B23705CB700871FE4 /* MockDebouncer.swift in Sources */,
+				17ECA79123705EAF00871FE4 /* MockImageCaching.swift in Sources */,
+				17ECA7BC237084ED00871FE4 /* DebouncerTests.swift in Sources */,
+				17ECA7C42370A1A200871FE4 /* MockUIImage.swift in Sources */,
+				17ECA79E2370611E00871FE4 /* MockFullscreenImageView.swift in Sources */,
+				17ECA7B823707E2300871FE4 /* MockSearchRouting.swift in Sources */,
+				17ECA7A02370617800871FE4 /* MockFullscreenImagePresenter.swift in Sources */,
+				17ECA7A62370693F00871FE4 /* SearchInteractorTests.swift in Sources */,
+				17ECA78D23705D1400871FE4 /* MockStorage.swift in Sources */,
+				17ECA7C22370850C00871FE4 /* ImageLoaderTests.swift in Sources */,
+				17ECA7AA237069BF00871FE4 /* MockFlickrSearchAPI.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

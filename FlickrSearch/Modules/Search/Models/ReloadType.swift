@@ -1,6 +1,6 @@
 import UIKit
 
-enum ReloadType {
+enum ReloadType: Equatable {
     case reloadData
     case insert(indices: [IndexPath])
 }

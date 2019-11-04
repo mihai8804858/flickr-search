@@ -8,7 +8,7 @@ struct SearchBuilder {
         let interactor = SearchInteractor(
             presenter: SearchPresenter(view: view, router: SearchRouter(source: view)),
             api: api,
-            imageLoader: ImageLoader(api: api, cacher: ImageCacher(storage: FileManager.default)),
+            imageLoader: ImageLoader(api: api, cache: ImageCacher(storage: FileManager.default)),
             debouncer: Debouncer(interval: 0.5)
         )
         view.interactor = interactor

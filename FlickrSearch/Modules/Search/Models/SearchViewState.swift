@@ -1,4 +1,4 @@
-enum SearchViewState {
+enum SearchViewState: Equatable {
     case empty
     case noResults
     case loading(resultsEmpty: Bool)

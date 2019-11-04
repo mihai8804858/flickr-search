@@ -1,6 +1,6 @@
 import UIKit
 
-struct IdentifiableImage: Identifiable {
+struct IdentifiableImage: Identifiable, Equatable {
     let id: String
     let image: UIImage
 
@@ -16,6 +16,10 @@ struct IdentifiableImage: Identifiable {
 
     static func imageID(for url: URL) -> String {
         return String(url.absoluteString.hashValue)
+    }
+
+    static func == (lhs: IdentifiableImage, rhs: IdentifiableImage) -> Bool {
+        return lhs.id == rhs.id && lhs.toData() == rhs.toData()
     }
 }
 

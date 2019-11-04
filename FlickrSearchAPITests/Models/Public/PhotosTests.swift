@@ -2,7 +2,7 @@ import XCTest
 @testable import FlickrSearchAPI
 
 final class PhotosTests: XCTestCase {
-    func testPhotoCanBeSuccessfullyDecoded() {
+    func testPhotosCanBeSuccessfullyDecoded() {
         let data =
         """
         {

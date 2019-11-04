@@ -100,7 +100,7 @@ final class PhotosPageTests: XCTestCase {
         XCTAssertEqual(try decode(), expectedModel)
     }
 
-    func testPhotosPageDecodingThrowsErrorWhenTotalPhotosStringThatCantBeConvertedToInt() {
+    func testPhotosPageDecodingThrowsErrorWhenTotalPhotosIsAnInvalidString() {
         let data =
         """
         {

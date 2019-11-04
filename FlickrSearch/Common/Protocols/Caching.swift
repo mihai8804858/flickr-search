@@ -7,3 +7,6 @@ protocol Caching {
     func get(forID id: String, callback: Callback<Model?>)
     func set(model: Model)
 }
+
+protocol ImageCaching: Caching where Model == IdentifiableImage {
+}

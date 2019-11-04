@@ -1,13 +1,13 @@
 import UIKit
 import FlickrSearchAPI
 
-final class ImageLoader: ImageLoading {
+final class ImageLoader<Cache: ImageCaching>: ImageLoading {
     let api: FlickrSearchAPIType
-    let cacher: ImageCacher
+    let cache: Cache
 
-    init(api: FlickrSearchAPIType, cacher: ImageCacher) {
+    init(api: FlickrSearchAPIType, cache: Cache) {
         self.api = api
-        self.cacher = cacher
+        self.cache = cache
     }
 
     func getImage(from url: URL, callback: Callback<Result<IdentifiableImage, ImageLoadingError>>) {
@@ -23,10 +23,10 @@ final class ImageLoader: ImageLoading {
 
     private func getCachedImage(for url: URL, callback: Callback<IdentifiableImage?>) {
         let id = IdentifiableImage.imageID(for: url)
-        cacher.contains(forID: id, callback: callback.chain { [weak self] exists, callback in
+        cache.contains(forID: id, callback: callback.chain { [weak self] exists, callback in
             guard let self = self else { return }
             guard exists else { return callback.execute(with: nil) }
-            self.cacher.get(forID: id, callback: callback)
+            self.cache.get(forID: id, callback: callback)
         })
     }
 
@@ -34,7 +34,7 @@ final class ImageLoader: ImageLoading {
         loadImage(from: url, callback: callback.map { [weak self] result in
             guard let self = self else { return result }
             if let image = try? result.get() {
-                self.cacher.set(model: image)
+                self.cache.set(model: image)
             }
             return result
         })

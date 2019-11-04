@@ -33,8 +33,8 @@ extension FullscreenImageViewController: FullscreenImagePresenterOutput {
 
 private extension FullscreenImageViewController {
     func configureSwipeToDismissIfNeeded() {
-        if #available(iOS 13, *) { return }
-        let recognizer = UISwipeGestureRecognizer.init(target: self, action: #selector(handleSwipe))
+        if #available(iOS 13, *) { return } // iOS 13 has default "swipe to dismiss" functionality
+        let recognizer = UISwipeGestureRecognizer(target: self, action: #selector(handleSwipe))
         recognizer.direction = .down
         view.addGestureRecognizer(recognizer)
     }

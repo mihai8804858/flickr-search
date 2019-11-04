@@ -1,7 +1,7 @@
 import UIKit
 import FlickrSearchAPI
 
-final class ImageCacher: Caching {
+final class ImageCacher: ImageCaching {
     private let storage: Atomic<Storage>
     private let cache = Atomic<NSCache<NSString, NSData>>(.init())
     private let workQueue = DispatchQueue(label: "IMAGE_CACHING_WORK_QUEUE", qos: .utility)

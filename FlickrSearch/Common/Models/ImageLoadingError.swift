@@ -1,6 +1,6 @@
 import FlickrSearchAPI
 
-enum ImageLoadingError: Error, CustomDebugStringConvertible {
+enum ImageLoadingError: Error, CustomDebugStringConvertible, Equatable {
     case api(APIError)
     case badData(Data)
 
