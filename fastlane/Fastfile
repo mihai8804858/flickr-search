@@ -21,7 +21,6 @@ desc 'Commit changed files and push to remote'
 lane :commit_version do |options|
   UI.build_failure!("Missing \"version\" parameter!") unless options.key?(:version)
   git_commit(path: ".", message: "Bump version to v#{options[:version]}")
-  push_to_git_remote(force: true)
 end
 
 desc 'Create a git tag and push to remote'
@@ -29,7 +28,6 @@ lane :tag_version do |options|
   UI.build_failure!("Missing \"version\" parameter!") unless options.key?(:version)
   tag = "v#{options[:version]}"
   add_git_tag(tag: tag, force: true)
-  push_git_tags(tag: tag, force: true)
 end
 
 desc 'Build app'
@@ -55,7 +53,7 @@ lane :test do |options|
 end
 
 desc 'Upload build to TestFlight'
-lane :release_to_testflight do |options|
+lane :release_build_to_testflight do |options|
   UI.build_failure!("Missing \"configuration\" parameter!") unless options.key?(:configuration)
 	UI.success("Uploading to TestFlight...")
 end
