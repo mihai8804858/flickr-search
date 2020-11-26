@@ -1,0 +1,84 @@
+# frozen_string_literal: true
+
+default_platform(:ios)
+
+before_all do |lane, options|
+	clear_derived_data
+end
+
+desc 'Bump app version and build number'
+lane :bump_version do |options|
+  UI.build_failure!("Missing \"version\" parameter!") unless options.key?(:version)
+  if current_project_version == options[:version]
+  	set_build_number(current_build_number.to_i + 1)
+  else
+  	set_project_version(options[:version])
+  	set_build_number(1)
+  end
+end
+
+desc 'Commit changed files and push to remote'
+lane :commit_version do |options|
+  UI.build_failure!("Missing \"version\" parameter!") unless options.key?(:version)
+  git_commit(path: ".", message: "Bump version to v#{options[:version]}")
+  push_to_git_remote(force: true)
+end
+
+desc 'Create a git tag and push to remote'
+lane :tag_version do |options|
+  UI.build_failure!("Missing \"version\" parameter!") unless options.key?(:version)
+  tag = "v#{options[:version]}"
+  add_git_tag(tag: tag, force: true)
+  push_git_tags(tag: tag, force: true)
+end
+
+desc 'Build app'
+lane :build do |options|
+  UI.build_failure!("Missing \"configuration\" parameter!") unless options.key?(:configuration)
+  build_ios_app(
+  	scheme: "FlickrSearch", 
+  	project: "FlickrSearch.xcodeproj",
+  	configuration: options[:configuration],
+  	skip_package_ipa: true,
+  	skip_archive: true
+  )
+end
+
+desc 'Run all tests'
+lane :test do |options|
+  scan(
+    scheme: "FlickrSearch",
+    code_coverage: true,
+    output_directory: ".reports",
+    devices: "iPhone 12 Pro"
+  )
+end
+
+desc 'Upload build to TestFlight'
+lane :release_to_testflight do |options|
+  UI.build_failure!("Missing \"configuration\" parameter!") unless options.key?(:configuration)
+	UI.success("Uploading to TestFlight...")
+end
+
+def install_pods
+  error_callback = lambda { |_|
+    cocoapods(repo_update: true, use_bundle_exec: true)
+  }
+  cocoapods(error_callback: error_callback, use_bundle_exec: true)
+end
+
+def current_project_version
+  get_version_number(xcodeproj: "FlickrSearch.xcodeproj", target: "FlickrSearch")
+end
+
+def set_project_version(version)
+	increment_version_number(version_number: version, xcodeproj: "FlickrSearch.xcodeproj")
+end
+
+def current_build_number
+	get_build_number(xcodeproj: "FlickrSearch.xcodeproj")
+end
+
+def set_build_number(build_number)
+  increment_build_number(build_number: build_number, xcodeproj: "FlickrSearch.xcodeproj")
+end
