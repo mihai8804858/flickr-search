@@ -3,6 +3,9 @@
 ## Build generated
 build/
 DerivedData/
+Pods/
+fastlane/report.xml
+.reports
 
 ## Various settings
 *.pbxuser
